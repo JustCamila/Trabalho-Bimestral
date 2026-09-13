@@ -2,63 +2,64 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Pizza;
+use App\Models\Categoria;
+use App\Http\Requests\StorePizzaRequest;
+use App\Http\Requests\UpdatePizzaRequest;
 
 class PizzaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // 1. Listar todas as pizzas com a categoria associada
     public function index()
     {
-        //
+        $pizzas = Pizza::with('categoria')->get();
+        return view('pizzas.index', compact('pizzas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // 2. Exibir formulário de cadastro (com as categorias para seleção)
     public function create()
     {
-        //
+        $categorias = Categoria::all();
+        return view('pizzas.create', compact('categorias'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // 3. Salvar uma nova pizza no banco de dados
+    public function store(StorePizzaRequest $request)
     {
-        //
+        Pizza::create($request->validated());
+
+        return redirect()->route('pizzas.index')
+            ->with('success', 'Pizza cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // 4. Mostrar detalhes de uma pizza específica
+    public function show(Pizza $pizza)
     {
-        //
+        return view('pizzas.show', compact('pizza'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // 5. Exibir formulário de edição preenchido
+    public function edit(Pizza $pizza)
     {
-        //
+        $categorias = Categoria::all();
+        return view('pizzas.edit', compact('pizza', 'categorias'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // 6. Atualizar os dados da pizza no banco
+    public function update(UpdatePizzaRequest $request, Pizza $pizza)
     {
-        //
+        $pizza->update($request->validated());
+
+        return redirect()->route('pizzas.index')
+            ->with('success', 'Pizza atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // 7. Remover uma pizza
+    public function destroy(Pizza $pizza)
     {
-        //
+        $pizza->delete();
+
+        return redirect()->route('pizzas.index')
+            ->with('success', 'Pizza excluída com sucesso!');
     }
 }
