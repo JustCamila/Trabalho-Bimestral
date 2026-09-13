@@ -2,28 +2,24 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePizzaRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+    // IMPORTANTE: Altere de false para true, se nao o Laravel vai bloquear o envio do formulário
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
+    // Regras de validacao para os dados da pizza
     public function rules(): array
     {
         return [
-            //
+            'nome'         => 'required|string|max:255',
+            'descricao'    => 'nullable|string',
+            'preco'        => 'required|numeric|min:0.01',
+            'categoria_id' => 'required|exists:categorias,id',
         ];
     }
 }
