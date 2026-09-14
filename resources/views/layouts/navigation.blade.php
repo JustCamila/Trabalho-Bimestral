@@ -15,6 +15,24 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('pedidos.create')" :active="request()->routeIs('pedidos.create')">
+                        Cardápio
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('pedidos.index')" :active="request()->routeIs('pedidos.index')">
+                        Meus Pedidos
+                    </x-nav-link>
+
+                    @if (Auth::user()->isAdmin())
+                        <x-nav-link :href="route('pizzas.index')" :active="request()->routeIs('pizzas.*')">
+                            Gerenciar Pizzas
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
+                            Gerenciar Categorias
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -70,6 +88,24 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('pedidos.create')" :active="request()->routeIs('pedidos.create')">
+                Cardápio
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('pedidos.index')" :active="request()->routeIs('pedidos.index')">
+                Meus Pedidos
+            </x-responsive-nav-link>
+
+            @if (Auth::user()->isAdmin())
+                <x-responsive-nav-link :href="route('pizzas.index')" :active="request()->routeIs('pizzas.*')">
+                    Gerenciar Pizzas
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
+                    Gerenciar Categorias
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
