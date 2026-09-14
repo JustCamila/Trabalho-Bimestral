@@ -9,14 +9,18 @@ class Pedido extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'status', 'total'];
+    protected $fillable = [
+        'user_id',
+        'status',
+        'total',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function itemPedidos()
+    public function itens()
     {
         return $this->hasMany(ItemPedido::class);
     }

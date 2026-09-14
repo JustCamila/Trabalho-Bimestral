@@ -63,7 +63,7 @@ class PedidoController extends Controller
             }
 
             // Atualizar o valor final no pedido
-            $pedido->update(['valor_total' => $totalPedido]);
+            $pedido->update(['total' => $totalPedido]);
         });
 
         return redirect()->route('pedidos.index')
