@@ -17,9 +17,24 @@ class AdminUserSeeder extends Seeder
          User::create([
             'name' => 'Administrador',
             'email' => 'admin@pizzaria.com',
-            'password' => Hash::make('senha123'),
+            'password' => Hash::make('adm123'),
             'role' => 'admin',
         ]);
+
+        User::create([
+            'name' => 'Cliente',
+            'email' => 'cliente@pizzaria.com',
+            'password' => Hash::make('cliente123'),
+            'role' => 'cliente',
+        ]);
+
+        User::create([
+            'name' => 'Funcionário',
+            'email' => 'funcionario@pizzaria.com',
+            'password' => Hash::make('func123'),
+            'role' => 'funcionario',
+        ]);
+
 
         
     }
